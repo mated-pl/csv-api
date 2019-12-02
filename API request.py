@@ -8,3 +8,5 @@ def json_print(x):                                              #funkcja do form
     print(text)
 
 json_print(response.json())                             #wywolana funkcja stworzona powyzej
+
+print ('test gita')
