@@ -15,11 +15,11 @@ def api_file_save(x):  # funkcja do zapisania api do pliku
     api_file.write(txt_response)
     api_file.close()
 
-def api_filter(x):       # funkcja filtruje responsa
+def api_filter(x,key, time):       # funkcja filtruje responsa
     filtered_values = []
     for n in x:
-        check = n['risetime']
-        if check > 1576530000:
+        check = n[key]
+        if check > time:
             filtered_values.append(check)
     print(filtered_values)
     return (filtered_values)
@@ -52,17 +52,18 @@ print(response2.status_code)
 # json_print(response2.json())               # pokaze caly response
 
 pass_time = response2.json()['response']    # extract the pass times from our JSON object. Szuka w slowniku 'response'
+response2_key = 'risetime'                          # podaje klucz do szukania
+risetime = 1576580000
 
 # risetimes = []                              # pokaze wszystkie wartosci dla klucza risetime i doda do listy
 # for x in pass_time:                         # robimy to w kodzie - ponizej funkcja
 #     risetimes.append(x['risetime'])
 # print(risetimes)
 
-response2_key = 'risetime'                          # podaje klucz do szukania
 print_value_for_key_json(pass_time,response2_key)   # wywoluje funkcje z 2 zmiennymi
 
-api_filter(pass_time)                # wywolana funkcja do filtrowania
-save_csv(api_filter(pass_time))         #dwie funkcje w jednej
+api_filter(pass_time,response2_key,risetime )                # wywolana funkcja do filtrowania
+save_csv(api_filter(pass_time, response2_key,risetime))         #dwie funkcje w jednej
 
 
 
